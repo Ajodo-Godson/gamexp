@@ -6,8 +6,8 @@ import Sudoku from './pages/Sudoku';
 import TicTacToe from './pages/TicTacToe';
 import RockPaperScissors from './pages/RockPaperScissors';
 import SecretRelay from './pages/SecretRelay';
-import styles from './styles/App.module.scss';
 import Minesweeper from './pages/Minesweeper';
+import styles from './styles/App.module.scss';
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
             <Route path="/rockpaperscissors" element={<RockPaperScissors />} />
             <Route path="/secretrelay" element={<SecretRelay />} />
             <Route path="/minesweeper" element={<Minesweeper />} />
+            <Route path="*" element={<div>404 - Page Not Found</div>} />
           </Routes>
         </main>
       </div>
@@ -30,4 +31,3 @@ function App() {
 }
 
 export default App;
-

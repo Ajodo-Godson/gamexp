@@ -14,16 +14,25 @@ function TicTacToe() {
     setXIsNext(!xIsNext);
   };
 
-  const renderSquare = (index) => (
-    <button className={styles.square} onClick={() => handleClick(index)}>
-      {board[index]}
-    </button>
-  );
+  const renderSquare = (index) => {
+    const isWinningSquare = winner?.line?.includes(index);
+    return (
+      <button
+        className={`${styles.square} ${isWinningSquare ? styles.winningSquare : ''}`}
+        onClick={() => handleClick(index)}
+      >
+        {board[index]}
+      </button>
+    );
+  };
 
   const winner = calculateWinner(board);
+  const isDraw = !board.includes(null) && !winner;
   const status = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${xIsNext ? 'X' : 'O'}`;
+    ? `Winner: ${winner.winner}`
+    : isDraw
+      ? `It's a draw!`
+      : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
     <div className={styles.tictactoe}>
@@ -44,6 +53,9 @@ function TicTacToe() {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
+      <button className={styles.restart} onClick={() => setBoard(Array(9).fill(null)) && setXIsNext(true)}>
+        Restart Game
+      </button>
     </div>
   );
 }
@@ -62,11 +74,10 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return { winner: squares[a], line: [a, b, c] };
     }
   }
   return null;
 }
 
 export default TicTacToe;
-
