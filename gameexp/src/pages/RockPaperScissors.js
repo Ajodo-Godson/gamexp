@@ -7,10 +7,14 @@ function RockPaperScissors() {
   const [result, setResult] = useState(null);
   const [playerScore, setPlayerScore] = useState(0);
   const [computerScore, setComputerScore] = useState(0);
+  const [rounds, setRounds] = useState(0);
 
   const choices = ['rock', 'paper', 'scissors'];
+  const MAX_ROUNDS = 5;
 
   const handlePlayerChoice = (choice) => {
+    if (rounds >= MAX_ROUNDS) return;
+
     const computerChoice = choices[Math.floor(Math.random() * choices.length)];
     setPlayerChoice(choice);
     setComputerChoice(computerChoice);
@@ -20,6 +24,8 @@ function RockPaperScissors() {
 
     if (gameResult === 'You win!') setPlayerScore((prev) => prev + 1);
     if (gameResult === 'Computer wins!') setComputerScore((prev) => prev + 1);
+
+    setRounds((prev) => prev + 1);
   };
 
   const determineWinner = (player, computer) => {
@@ -40,12 +46,22 @@ function RockPaperScissors() {
     setResult(null);
   };
 
+  const resetScoresAndRounds = () => {
+    setPlayerScore(0);
+    setComputerScore(0);
+    setRounds(0);
+    setPlayerChoice(null);
+    setComputerChoice(null);
+    setResult(null);
+  };
+
   return (
     <div className={styles.rockPaperScissors}>
       <h2>Rock Paper Scissors</h2>
       <div className={styles.scores}>
         <p>Player Score: {playerScore}</p>
         <p>Computer Score: {computerScore}</p>
+        <p>Rounds Played: {rounds}/{MAX_ROUNDS}</p>
       </div>
       <div className={styles.choices}>
         {choices.map((choice) => (
@@ -64,6 +80,29 @@ function RockPaperScissors() {
           </button>
         </div>
       )}
+      {rounds === MAX_ROUNDS && (
+        <div className={styles.overallResult}>
+          <h3>
+            {playerScore > computerScore
+              ? 'Congratulations! You are the overall winner!'
+              : playerScore < computerScore
+                ? 'Computer wins the game!'
+                : 'It\'s a tie!'}
+          </h3>
+          <button className={styles.resetButton} onClick={resetScoresAndRounds}>
+            Play Again
+          </button>
+        </div>
+      )}
+      <button
+        className={styles.resetButton}
+        onClick={() => {
+          setPlayerScore(0);
+          setComputerScore(0);
+        }}
+      >
+        Reset Scores
+      </button>
     </div>
   );
 }

@@ -10,7 +10,7 @@ function Navigation() {
                 <li><Link to="/sudoku">Sudoku</Link></li>
                 <li><Link to="/tictactoe">Tic Tac Toe</Link></li>
                 <li><Link to="/rockpaperscissors">Rock Paper Scissors</Link></li>
-                <li><Link to="/secretrelay">Secret Relay</Link></li>
+                <li><Link to="/guessthenumber">Guess The Number</Link></li>
                 <li><Link to="/minesweeper">Minesweeper</Link></li>
             </ul>
         </nav>
