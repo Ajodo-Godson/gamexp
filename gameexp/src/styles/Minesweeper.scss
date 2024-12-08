@@ -1,9 +1,12 @@
 .board {
     display: grid;
-    gap: 2px;
+    gap: 4px;
     margin: 20px auto;
     border: 2px solid #000;
     padding: 10px;
+    background-color: #333;
+    max-width: fit-content;
+    border-radius: 8px;
 }
 
 .row {
@@ -11,36 +14,77 @@
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #999;
     text-align: center;
-    line-height: 30px;
-    font-size: 18px;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
-    background-color: #ddd;
-
-    &:hover {
-        background-color: #bbb;
-    }
+    background-color: #cfd8dc;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.2s, transform 0.1s;
 
     &.revealed {
-        background-color: #fff;
+        background-color: #f5f5f5;
         cursor: default;
-        border: 1px solid #aaa;
+        border: 1px solid #ddd;
+        transform: none;
+    }
+
+    &.flagged {
+        background-color: #ffcc80;
+        color: #d84315;
+    }
+
+    &.number-1 {
+        color: #007bff;
+    }
+
+    &.number-2 {
+        color: #388e3c;
+    }
+
+    &.number-3 {
+        color: #d32f2f;
+    }
+
+    &.number-4 {
+        color: #7b1fa2;
+    }
+}
+
+.restart-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #0056b3;
     }
 }
 
 .game-over {
-    color: red;
+    color: #f44336;
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
+    font-size: 20px;
 }
 
 .win {
-    color: green;
+    color: #4caf50;
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
+    font-size: 20px;
 }
