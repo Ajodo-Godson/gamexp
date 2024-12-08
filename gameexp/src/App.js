@@ -20,7 +20,7 @@ function App() {
             <Route path="/sudoku" element={<Sudoku />} />
             <Route path="/tictactoe" element={<TicTacToe />} />
             <Route path="/rockpaperscissors" element={<RockPaperScissors />} />
-            <Route path="/secretrelay" element={<GuessTheNumber />} />
+            <Route path="/guessthenumber" element={<GuessTheNumber />} />
             <Route path="/minesweeper" element={<Minesweeper />} />
             <Route path="*" element={<div>404 - Page Not Found</div>} />
           </Routes>
