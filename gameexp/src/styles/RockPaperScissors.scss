@@ -1,0 +1,48 @@
+@debug 'RockPaperScissors.scss loaded';
+
+
+.rock-paper-scissors {
+    max-width: 400px;
+    margin: 0 auto;
+
+    h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .choices {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #c0392b;
+            }
+        }
+    }
+
+    .result {
+        text-align: center;
+
+        p {
+            margin: 5px 0;
+        }
+
+        .winner {
+            font-weight: bold;
+            font-size: 18px;
+            color: #27ae60;
+        }
+    }
+}
