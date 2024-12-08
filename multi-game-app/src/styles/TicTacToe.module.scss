@@ -1,0 +1,29 @@
+.tictactoe {
+  text-align: center;
+
+  .boardRow {
+    display: flex;
+    justify-content: center;
+  }
+
+  .square {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 2px;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  .status {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+

@@ -5,9 +5,7 @@ import Home from './pages/Home';
 import Sudoku from './pages/Sudoku';
 import TicTacToe from './pages/TicTacToe';
 import RockPaperScissors from './pages/RockPaperScissors';
-import SecretRelay from './pages/SecretRelay';
 import styles from './styles/App.module.scss';
-import Minesweeper from './pages/Minesweeper';
 
 function App() {
   return (
@@ -20,8 +18,6 @@ function App() {
             <Route path="/sudoku" element={<Sudoku />} />
             <Route path="/tictactoe" element={<TicTacToe />} />
             <Route path="/rockpaperscissors" element={<RockPaperScissors />} />
-            <Route path="/secretrelay" element={<SecretRelay />} />
-            <Route path="/minesweeper" element={<Minesweeper />} />
           </Routes>
         </main>
       </div>
