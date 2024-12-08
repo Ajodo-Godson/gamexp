@@ -3,22 +3,52 @@ import styles from '../styles/Sudoku.module.scss';
 
 // Function to check if a move is valid
 const isValidMove = (board, row, col, value) => {
-  if (board[row].includes(value)) return false;
-
-  for (let i = 0; i < 9; i++) {
-    if (board[i][col] === value) return false;
+  // Check row
+  for (let j = 0; j < 9; j++) {
+    if (board[row][j] === value && j !== col) return false;
   }
 
+  // Check column
+  for (let i = 0; i < 9; i++) {
+    if (board[i][col] === value && i !== row) return false;
+  }
+
+  // Check 3x3 square
   const startRow = Math.floor(row / 3) * 3;
   const startCol = Math.floor(col / 3) * 3;
   for (let i = startRow; i < startRow + 3; i++) {
     for (let j = startCol; j < startCol + 3; j++) {
-      if (board[i][j] === value) return false;
+      if (board[i][j] === value && (i !== row || j !== col)) return false;
     }
   }
 
   return true;
 };
+
+
+// Check if solution is correct
+const isSolutionCorrect = (board) => {
+  const isValidSet = (set) => {
+    const numbers = set.filter((num) => num !== 0); // Ignore zeros
+    return numbers.length === 9 && new Set(numbers).size === 9;
+  };
+
+  for (let i = 0; i < 9; i++) {
+    const row = board[i];
+    const col = board.map((row) => row[i]);
+    const square = board
+      .slice(Math.floor(i / 3) * 3, Math.floor(i / 3) * 3 + 3)
+      .map((row) => row.slice((i % 3) * 3, (i % 3) * 3 + 3))
+      .flat();
+
+    if (!isValidSet(row) || !isValidSet(col) || !isValidSet(square)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 
 // Generate a full Sudoku solution
 const generateFullSolution = () => {
@@ -78,6 +108,7 @@ function Sudoku() {
   const [solution, setSolution] = useState([]);
   const [initialBoard, setInitialBoard] = useState([]);
   const [showSolution, setShowSolution] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(null);
 
   useEffect(() => {
     const { puzzle, solution } = generateSudokuPuzzle(40); // 40 clues for an easy puzzle
@@ -87,6 +118,8 @@ function Sudoku() {
   }, []);
 
   const handleCellChange = (row, col, value) => {
+    if (initialBoard[row][col] !== 0) return; // Prevent changes to pre-filled cells
+
     if (value === '' || (/^[1-9]$/.test(value) && isValidMove(board, row, col, parseInt(value, 10)))) {
       const newBoard = board.map((r, rowIndex) =>
         r.map((cell, colIndex) =>
@@ -97,8 +130,14 @@ function Sudoku() {
     }
   };
 
+
   const revealSolution = () => {
+    setBoard(solution);
     setShowSolution(true);
+  };
+
+  const checkSolution = () => {
+    setIsCorrect(isSolutionCorrect(board));
   };
 
   return (
@@ -125,6 +164,14 @@ function Sudoku() {
       <button onClick={revealSolution} className={styles.revealButton}>
         Reveal Solution
       </button>
+      <button onClick={checkSolution} className={styles.checkButton}>
+        Check Solution
+      </button>
+      {isCorrect !== null && (
+        <div className={styles.result}>
+          {isCorrect ? 'Correct Solution!' : 'Incorrect Solution, please try again.'}
+        </div>
+      )}
     </div>
   );
 }
